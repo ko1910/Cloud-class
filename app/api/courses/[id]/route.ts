@@ -4,9 +4,6 @@ import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { connectDB } from "@/lib/mongodb";
 import Course from "@/models/Course";
 
-/**
- * 📘 GET: Lấy thông tin chi tiết 1 khóa học theo ID
- */
 export async function GET(req: Request, { params }: { params: { id: string } }) {
   await connectDB();
 
