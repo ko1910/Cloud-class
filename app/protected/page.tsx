@@ -1,13 +1,18 @@
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { redirect } from "next/navigation";
 
-// app/protected/page.tsx
-"use client";
-import { useSession } from "next-auth/react";
+export const dynamic = "force-dynamic"; 
 
-export default function ProtectedPage() {
-  const { data: session, status } = useSession();
+export default async function ProtectedPage() {
+  const session = await getServerSession(authOptions);
+  if (!session?.user) {
+    redirect("/login?callbackUrl=/protected");
+  }
 
-  if (status === "loading") return <p>Đang tải...</p>;
-  if (!session) return <p>Bạn cần đăng nhập!</p>;
-
-  return <div>Xin chào {session.user?.name} (vai trò: {(session.user as any).role})</div>;
+  return (
+    <div>
+      Xin chào {session.user?.name} (vai trò: {(session.user as any).role})
+    </div>
+  );
 }
