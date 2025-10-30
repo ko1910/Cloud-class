@@ -10,17 +10,14 @@ import Course from "@/models/Course";
  */
 export async function GET(
   req: NextRequest,
-  // === SỬA LỖI BUILD (LẦN 2) ===
-  context: { params: Promise<{ id: string }> } // Thay đổi 1: Nhận 'context'
+  context: { params: Promise<{ id: string }> } 
 ) {
-  // === SỬA LỖI BUILD (LẦN 2) ===
-  const params = await context.params; // Thay đổi 2: Await để lấy params
-  // ==============================
+  const params = await context.params; 
 
   await connectDB();
 
   try {
-    const course = await Course.findById(params.id); // Giờ params.id đã hợp lệ
+    const course = await Course.findById(params.id); 
 
     if (!course) {
       return NextResponse.json({ error: "Not found" }, { status: 404 });
