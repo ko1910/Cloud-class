@@ -5,6 +5,8 @@ import { connectDB } from "@/lib/mongodb";
 import User from "@/models/User";
 import bcrypt from "bcryptjs";
 
+export const runtime = "nodejs";
+
 export const authOptions: AuthOptions = {
   providers: [
     CredentialsProvider({
